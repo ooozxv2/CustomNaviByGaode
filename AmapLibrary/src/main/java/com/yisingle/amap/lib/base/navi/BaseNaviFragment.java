@@ -74,7 +74,7 @@ public abstract class BaseNaviFragment extends BaseNaviLifeCycleFragment {
             //获取NaviViewOptions的参数对象。
             AMapNaviViewOptions options = getNaviView().getViewOptions();
             //设置NaviViewOptions的参数对象
-            getNaviView().setViewOptions(NaviOptionsUtils.configureOptions(options));
+            getNaviView().setViewOptions(NaviOptionsUtils.configureOptions(getContext(),options));
             //调用NaviView的生命周期
             getNaviView().onCreate(savedInstanceState);
         }
@@ -123,17 +123,7 @@ public abstract class BaseNaviFragment extends BaseNaviLifeCycleFragment {
     }
 
 
-    /**
-     * 开始导航 在路径规划之后 也就是onCalculateRouteSuccess成功之后才可以调用这个方法
-     */
-    public void startNavi() {
-        if (null != mAMapNavi) {
-            mAMapNavi.stopNavi();
-            mAMapNavi.setEmulatorNaviSpeed(90);
-            mAMapNavi.startNavi(NaviType.GPS);
-        }
 
-    }
 
     protected void drawRouteViewOnNaviView(int routeId) {
         if (null != getNaviView() && null != mAMapNavi) {

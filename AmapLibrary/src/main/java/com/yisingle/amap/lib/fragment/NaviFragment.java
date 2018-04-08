@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.amap.api.location.AMapLocation;
 import com.amap.api.maps.TextureMapView;
 import com.amap.api.navi.AMapNaviView;
+import com.amap.api.navi.enums.NaviType;
 import com.amap.api.navi.model.AMapModelCross;
 import com.amap.api.navi.model.AMapNaviCross;
 import com.amap.api.navi.model.AMapNaviPath;
@@ -37,12 +38,12 @@ import java.util.List;
 
 /**
  * @author jikun
- *         Created by jikun on 2018/3/29.
+ * Created by jikun on 2018/3/29.
  */
 
 public class NaviFragment extends BaseNaviFragment {
 
-    public static final String BUNDLE_KEY = "ACTION_DATA";
+    public static final String BUNDLE_KEY = "ATION_DATA";
 
     private NaviActionData currentNaviActionData;
 
@@ -533,6 +534,23 @@ public class NaviFragment extends BaseNaviFragment {
         Log.e("hideModeCross", "test-hideModeCross-----");
         //关闭路口放大图回调(模型图)。
         showModeLittleNaviInfo(false);
+
+    }
+
+    /**
+     * 开始导航 在路径规划之后 也就是onCalculateRouteSuccess成功之后才可以调用这个方法
+     */
+    public void startNavi() {
+        if (null != mAMapNavi) {
+            mAMapNavi.stopNavi();
+            mAMapNavi.setEmulatorNaviSpeed(90);
+            if (currentNaviActionData.isEmulatorNavi()) {
+                mAMapNavi.startNavi(NaviType.EMULATOR);
+            } else {
+                mAMapNavi.startNavi(NaviType.GPS);
+            }
+
+        }
 
     }
 

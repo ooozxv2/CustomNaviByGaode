@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.route.BusRouteResult;
@@ -15,7 +16,12 @@ import com.amap.api.services.route.DriveRouteResult;
 import com.amap.api.services.route.RideRouteResult;
 import com.amap.api.services.route.RouteSearch;
 import com.amap.api.services.route.WalkRouteResult;
+import com.yanzhenjie.permission.Action;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Permission;
 import com.yisingle.amap.lib.GaoDeErrorUtils;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getApikey();
+        getAndPermission();
         tvInfo = findViewById(R.id.tvInfo);
         routeSearch = new RouteSearch(this);
 
@@ -92,8 +99,46 @@ public class MainActivity extends AppCompatActivity {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        if (applicationInfo == null) return;
+        if (applicationInfo == null) {
+            return;
+        }
         String value = applicationInfo.metaData.getString("com.amap.api.v2.apikey");
-        Log.e("测试代码", "测试代码Apikey="+value);
+        Log.e("测试代码", "测试代码Apikey=" + value);
+    }
+
+    public void getAndPermission() {
+        //定位权限对于地图应用是非常重要的请一定允许
+        AndPermission.with(this)
+                .permission(
+                        Permission.ACCESS_FINE_LOCATION,
+                        Permission.ACCESS_COARSE_LOCATION,
+                        Permission.WRITE_EXTERNAL_STORAGE,
+                        Permission.READ_PHONE_STATE
+                )
+                .onGranted(new Action() {
+                    @Override
+                    public void onAction(List<String> permissions) {
+                        // TODO what to do.
+                        StringBuilder stringBuilder = new StringBuilder();
+                        for (String p : permissions) {
+                            stringBuilder.append("\n");
+                            stringBuilder.append(p);
+                        }
+                        Log.e("测试代码", "权限信息onGranted\n" + stringBuilder.toString());
+                    }
+                })
+                .onDenied(new Action() {
+                    @Override
+                    public void onAction(List<String> permissions) {
+                        // TODO what to do
+                        StringBuilder stringBuilder = new StringBuilder();
+                        for (String p : permissions) {
+                            stringBuilder.append("\n");
+                            stringBuilder.append(p);
+                        }
+                        Log.e("测试代码", "权限信息onDenied\n" + stringBuilder.toString());
+                        Toast.makeText(getApplicationContext(), stringBuilder.toString() + "权限被拒绝", Toast.LENGTH_SHORT).show();
+                    }
+                }).start();
     }
 }

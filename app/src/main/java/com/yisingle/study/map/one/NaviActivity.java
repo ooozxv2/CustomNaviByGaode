@@ -23,7 +23,10 @@ public class NaviActivity extends AppCompatActivity {
 
 
         NaviActionData naviActionData = new NaviActionData.Builder()
+                //路径规划成功后立即导航
                 .setNaviRightNow(true)
+                //设置模拟导航
+                .setEmulatorNavi(true)
                 .buildEnd(null, new NaviLatLng(30.661825, 104.071228));
         NaviFragment naviFragment = NaviFragment.newInstance(naviActionData);
 

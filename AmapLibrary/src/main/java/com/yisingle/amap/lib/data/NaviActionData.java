@@ -13,7 +13,7 @@ import java.lang.annotation.RetentionPolicy;
 
 /**
  * @author jikun
- *         Created by jikun on 2018/4/3.
+ * Created by jikun on 2018/4/3.
  */
 
 public class NaviActionData implements Parcelable {
@@ -47,7 +47,13 @@ public class NaviActionData implements Parcelable {
      * 算路成功后是否立即导航 这个主要是在  onCalculateRouteSuccess中计算
      * 否 则先在MapView上画线 是则立即导航
      */
-    private boolean isNaviRightNow = false;
+    private boolean isNaviRightNow;
+
+
+    /**
+     * 是否是模拟导航  true为模拟导航 和 false为GPS导航
+     */
+    private boolean isEmulatorNavi = false;
 
     /**
      * 建立导航去乘客起点的数据
@@ -71,6 +77,7 @@ public class NaviActionData implements Parcelable {
         this.type = Type.DoNoThing;
         this.strategy = StrategyType.DRIVING_SHORTEST_DISTANCE;
         this.isNaviRightNow = false;
+        this.isEmulatorNavi = false;
     }
 
     public @StrategyType
@@ -128,9 +135,14 @@ public class NaviActionData implements Parcelable {
             return this;
         }
 
+        public Builder setEmulatorNavi(boolean emulatorNavi) {
+            data.setEmulatorNavi(emulatorNavi);
+            return this;
+        }
+
         /**
          * @param naviRightNow 是否在算路成功后立即导航。
-         * @return
+         * @return Builder
          */
         public Builder setNaviRightNow(boolean naviRightNow) {
             data.setNaviRightNow(naviRightNow);
@@ -173,7 +185,7 @@ public class NaviActionData implements Parcelable {
 
     //添加支持注解的依赖到你的项目中，需要在build.gradle文件中的依赖块中添加：
     //dependencies { compile 'com.android.support:support-annotations:24.2.0' }
-    @IntDef({Type.DoNoThing,Type.NaviToStart, Type.NaviToEnd})
+    @IntDef({Type.DoNoThing, Type.NaviToStart, Type.NaviToEnd})
     @Retention(RetentionPolicy.SOURCE)
     public @interface Type {
         int DoNoThing = -1;
@@ -206,6 +218,15 @@ public class NaviActionData implements Parcelable {
         this.endLatlng = endLatlng;
     }
 
+
+    public boolean isEmulatorNavi() {
+        return isEmulatorNavi;
+    }
+
+    public void setEmulatorNavi(boolean emulatorNavi) {
+        isEmulatorNavi = emulatorNavi;
+    }
+
     public @Type
     int getType() {
         return type;
@@ -229,6 +250,7 @@ public class NaviActionData implements Parcelable {
         dest.writeInt(this.type);
         dest.writeInt(this.strategy);
         dest.writeByte(this.isNaviRightNow ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.isEmulatorNavi ? (byte) 1 : (byte) 0);
     }
 
     protected NaviActionData(Parcel in) {
@@ -238,6 +260,7 @@ public class NaviActionData implements Parcelable {
         this.type = in.readInt();
         this.strategy = in.readInt();
         this.isNaviRightNow = in.readByte() != 0;
+        this.isEmulatorNavi = in.readByte() != 0;
     }
 
     public static final Creator<NaviActionData> CREATOR = new Creator<NaviActionData>() {
