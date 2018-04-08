@@ -1,6 +1,8 @@
 package com.yisingle.amap.lib.utils.map;
 
+import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.support.annotation.NonNull;
@@ -15,7 +17,7 @@ import com.yisingle.amap.lib.utils.ScreenUtils;
 
 /**
  * @author jikun
- *         Created by jikun on 2018/3/30.
+ * Created by jikun on 2018/3/30.
  */
 
 public class NaviOptionsUtils {
@@ -40,7 +42,7 @@ public class NaviOptionsUtils {
     }
 
 
-    public static AMapNaviViewOptions configureOptions(@NonNull AMapNaviViewOptions options) {
+    public static AMapNaviViewOptions configureOptions(Context context, @NonNull AMapNaviViewOptions options) {
 
         //设置前方拥堵时不重新计算路径（只适用于驾车导航，需要联网）
         options.setReCalculateRouteForTrafficJam(false);
@@ -67,13 +69,13 @@ public class NaviOptionsUtils {
         //设置路况光柱条是否显示（只适用于驾车导航，需要联网）。
         options.setTrafficBarEnabled(false);
         //设置导航起点图片
-        options.setStartPointBitmap(BitmapDescriptorFactory.fromResource(R.drawable.driver_navi_start).getBitmap());
+        options.setStartPointBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.driver_navi_start));
         //设置导航终点图片
-        options.setEndPointBitmap(BitmapDescriptorFactory.fromResource(R.drawable.driver_navi_restdistance).getBitmap());
+        options.setEndPointBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.driver_navi_restdistance));
         //设置导航定位车辆图片
-        options.setCarBitmap(BitmapDescriptorFactory.fromResource(R.drawable.driver_navi_car_circle).getBitmap());
+        options.setCarBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.driver_navi_car_circle));
         //设置罗盘位图图片
-        options.setFourCornersBitmap(BitmapDescriptorFactory.fromResource(R.drawable.driver_navi_direction).getBitmap());
+        options.setFourCornersBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.driver_navi_direction));
         /**
          * 设置自车位置锁定在屏幕中的位置
          * 参数:
