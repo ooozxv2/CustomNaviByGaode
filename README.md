@@ -44,6 +44,20 @@
 [如何申请Android高德开放平台的ApiKey请点我](https://github.com/jikun2008/CustomNaviByGaode/blob/master/%E7%94%B3%E8%AF%B7%E9%AB%98%E5%BE%B7sdk%E7%9A%84ApiKey%E7%9A%84%E6%AD%A5%E9%AA%A4.md)
 
 
+例子:
+
+``` java
+NaviActionData naviActionData = new NaviActionData.Builder()
+        //路径规划成功后立即导航
+        .setNaviRightNow(true)
+        //设置模拟导航
+        .setEmulatorNavi(true)
+        .buildEnd(null, new NaviLatLng(30.661825, 104.071228));
+NaviFragment naviFragment = NaviFragment.newInstance(naviActionData);
+
+getSupportFragmentManager().beginTransaction().replace(R.id.rlNaviContent, naviFragment).commitAllowingStateLoss();
+```
+
 
 
 
