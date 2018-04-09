@@ -10,6 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="7a91a3b1ccdf395223bcf4f511d5697c" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
