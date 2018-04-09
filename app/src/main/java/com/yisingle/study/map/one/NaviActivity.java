@@ -6,11 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.amap.api.navi.model.NaviLatLng;
 import com.yisingle.amap.lib.data.NaviActionData;
+import com.yisingle.amap.lib.data.StrategyType;
 import com.yisingle.amap.lib.fragment.NaviFragment;
 
 /**
  * @author jikun
- *         Created by jikun on 2018/3/29.
+ * Created by jikun on 2018/3/29.
  */
 
 public class NaviActivity extends AppCompatActivity {
@@ -24,7 +25,8 @@ public class NaviActivity extends AppCompatActivity {
 
         NaviActionData naviActionData = new NaviActionData.Builder()
                 //路径规划成功后立即导航
-                .setNaviRightNow(true)
+                .setNaviRightNow(false)
+                .setStrategy(StrategyType.DRIVING_MULTIPLE_ROUTES_AVOID_CONGESTION)
                 //设置模拟导航
                 .setEmulatorNavi(true)
                 .buildEnd(null, new NaviLatLng(30.661825, 104.071228));

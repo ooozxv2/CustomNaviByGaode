@@ -50,7 +50,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     //添加权限第三方权限文件。
-//    implementation project(':AmapLibrary')
+    implementation project(':AmapLibrary')
     implementation 'com.yanzhenjie:permission:2.0.0-rc4'
-    compile 'com.yisingle.amap.lib:AmapLibrary:0.0.6'
+//    compile 'com.yisingle.amap.lib:AmapLibrary:0.0.6'
 }

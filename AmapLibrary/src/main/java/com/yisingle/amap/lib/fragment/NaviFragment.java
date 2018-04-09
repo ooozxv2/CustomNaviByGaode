@@ -392,7 +392,7 @@ public class NaviFragment extends BaseNaviFragment {
 
         } else {
             showSuccess();
-            //如果不是那么需要根据currentNaviActionData.isNaviRightNow()
+            //如果是立即导航 根据currentNaviActionData.isNaviRightNow()
             // 判断是在MapView上画路线 还是在NaviView上画路线
             if (currentNaviActionData.isNaviRightNow()) {
                 if (ints.length > 0) {
@@ -402,7 +402,12 @@ public class NaviFragment extends BaseNaviFragment {
                     startNavi();
                 }
             } else {
-
+                //如果不是立即导航  currentNaviActionData.isNaviRightNow()==false
+                drawMultipleRouteViewOnMapView(ints);
+                if (ints.length > 0 && null != mAMapNavi) {
+                    AMapNaviPath path = mAMapNavi.getNaviPaths().get(ints[0]);
+                    moveCameraMapView(path.getStartPoint(), path.getEndPoint());
+                }
             }
         }
 

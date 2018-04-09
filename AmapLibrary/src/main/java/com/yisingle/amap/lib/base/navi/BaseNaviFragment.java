@@ -13,18 +13,18 @@ import com.amap.api.navi.AMapNavi;
 import com.amap.api.navi.AMapNaviView;
 import com.amap.api.navi.AMapNaviViewOptions;
 import com.amap.api.navi.enums.BroadcastMode;
-import com.amap.api.navi.enums.NaviType;
 import com.amap.api.navi.model.NaviInfo;
 import com.amap.api.navi.model.NaviLatLng;
 import com.amap.api.navi.view.NextTurnTipView;
 import com.yisingle.amap.lib.utils.ContextUtils;
 import com.yisingle.amap.lib.utils.DpSpPxUtils;
 import com.yisingle.amap.lib.utils.map.NaviOptionsUtils;
+import com.yisingle.amap.lib.widget.MultipleRouteView;
 import com.yisingle.amap.lib.widget.SimpleRouteView;
 
 /**
  * @author jikun
- *         Created by jikun on 2018/3/29.
+ * Created by jikun on 2018/3/29.
  */
 
 public abstract class BaseNaviFragment extends BaseNaviLifeCycleFragment {
@@ -39,6 +39,12 @@ public abstract class BaseNaviFragment extends BaseNaviLifeCycleFragment {
      * NaviView上绘制的路线View
      */
     protected SimpleRouteView naviRouteView;
+
+
+    /**
+     * MapView上的绘制的多条路线MultipleRouteView
+     */
+    protected MultipleRouteView multipleRouteView;
 
 
     /**
@@ -68,13 +74,14 @@ public abstract class BaseNaviFragment extends BaseNaviLifeCycleFragment {
      */
     protected void initNaviView(Bundle savedInstanceState, AMapNaviView naviView) {
         naviRouteView = new SimpleRouteView();
+        multipleRouteView = new MultipleRouteView();
         //绑定导航View到Actity 其实就是设置NaviView给Activity
         bindNaviViewToActivity(naviView);
         if (null != getNaviView() && null != getNaviView().getViewOptions()) {
             //获取NaviViewOptions的参数对象。
             AMapNaviViewOptions options = getNaviView().getViewOptions();
             //设置NaviViewOptions的参数对象
-            getNaviView().setViewOptions(NaviOptionsUtils.configureOptions(getContext(),options));
+            getNaviView().setViewOptions(NaviOptionsUtils.configureOptions(getContext(), options));
             //调用NaviView的生命周期
             getNaviView().onCreate(savedInstanceState);
         }
@@ -123,9 +130,26 @@ public abstract class BaseNaviFragment extends BaseNaviLifeCycleFragment {
     }
 
 
+    /**
+     * 根据routeId在MapView画路线
+     * 路线有多条
+     *
+     * @param routeIds
+     */
+    protected void drawMultipleRouteViewOnMapView(int[] routeIds) {
+        cleanMultipleRouteViewOnMapView();
+        if (null != getMapView() && null != mAMapNavi) {
 
+            multipleRouteView.drawMultipleView(getContext(), getMapView().getMap(), routeIds, mAMapNavi);
+        }
+    }
+
+    protected void cleanMultipleRouteViewOnMapView() {
+        multipleRouteView.cleanMultipleView();
+    }
 
     protected void drawRouteViewOnNaviView(int routeId) {
+        cleanRouteViewOnNaviView();
         if (null != getNaviView() && null != mAMapNavi) {
             //设置导航选择路线
             mAMapNavi.selectRouteId(routeId);
@@ -148,6 +172,7 @@ public abstract class BaseNaviFragment extends BaseNaviLifeCycleFragment {
     public void onDestroy() {
         super.onDestroy();
         cleanRouteViewOnNaviView();
+        cleanMultipleRouteViewOnMapView();
 
         if (null != getNaviView()) {
             getNaviView().onDestroy();
