@@ -5,7 +5,7 @@
 - **多路径规划(已经实现)**
 - **多路径规划和导航都是在一个Fragment中实现的**
 
->> 多路规划和导航可以放在同一个Activity中实现
+> 多路规划和导航可以放在同一个Activity中实现
 
 <img width="320px" src="http://p6wrbso1g.bkt.clouddn.com/%E5%A4%9A%E8%B7%AF%E5%BE%84%E8%A7%84%E5%88%92%E5%9B%BE%E7%89%87.png"/>
 
