@@ -73,7 +73,8 @@ NaviActionData naviActionData = new NaviActionData.Builder()
         .buildEnd(null, new NaviLatLng(30.661825, 104.071228));
 NaviFragment naviFragment = NaviFragment.newInstance(naviActionData);
 
-getSupportFragmentManager().beginTransaction().replace(R.id.rlNaviContent, naviFragment).commitAllowingStateLoss();
+getSupportFragmentManager().beginTransaction()
+.replace(R.id.rlNaviContent, naviFragment).commitAllowingStateLoss();
 ```
 
 
