@@ -1,12 +1,13 @@
 # 高德SDK自定导航效果
 
 
-- **扫描下面二维码下载DEMO **
+- **扫描下面二维码下载DEMO**
+
 <img width="200px" src="http://p6wrbso1g.bkt.clouddn.com/apk%E4%B8%8B%E8%BD%BD%E5%9C%B0%E5%9D%80.png"/>
 
 
 
-- **扫描下面二维码加入Android高德sdk交流的QQ群 QQ群号:744832719 **
+- **扫描下面二维码加入Android高德sdk交流的QQ群 QQ群号:744832719**
 
 <img width="260px" src="http://p6wrbso1g.bkt.clouddn.com/%E9%AB%98%E5%BE%B7qq%E7%BE%A4%E5%88%86%E4%BA%AB.png"/>
 
