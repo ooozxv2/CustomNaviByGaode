@@ -1,5 +1,8 @@
 # 高德SDK自定导航效果
 
+- **扫描下面二维码下载DEMO **
+<img width="140px" src="http://p6wrbso1g.bkt.clouddn.com/apk%E4%B8%8B%E8%BD%BD%E5%9C%B0%E5%9D%80.png"/>
+
 ## 主要功能
 - **可以使用Fragment进行导航(已经实现)**
 - **多路径规划(已经实现)**
@@ -11,9 +14,7 @@
 
 <img width="320px" src="http://ohsx1h37z.bkt.clouddn.com/%E9%AB%98%E5%BE%B7%E5%AF%BC%E8%88%AA%E6%95%88%E6%9E%9C%E5%9B%BE1.png"/>
 
-扫描下面二维码下载apk
 
-<img width="280px" src="http://p6wrbso1g.bkt.clouddn.com/apk%E4%B8%8B%E8%BD%BD%E5%9C%B0%E5%9D%80.png"/>
 
 
 
