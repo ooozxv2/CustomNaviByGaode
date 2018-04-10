@@ -1,9 +1,10 @@
-# 高德SDK自定导航效果
+# Android高德SDK 导航篇:自定义导航
 
+- **[github地址](https://github.com/jikun2008/CustomNaviByGaode)**
 
 - **扫描下面二维码下载DEMO**
 
-<img width="200px" src="http://p6wrbso1g.bkt.clouddn.com/apk%E4%B8%8B%E8%BD%BD%E5%9C%B0%E5%9D%80.png"/>
+<img width="200px" src="https://user-gold-cdn.xitu.io/2018/4/10/162af0981e141889?w=280&h=280&f=png&s=1925"/>
 
 
 
@@ -11,7 +12,7 @@
 
 - **扫描下面二维码加入Android高德sdk交流的QQ群 QQ群号:744832719**
 
-<img width="260px" src="http://p6wrbso1g.bkt.clouddn.com/%E9%AB%98%E5%BE%B7qq%E7%BE%A4%E5%88%86%E4%BA%AB.png"/>
+<img width="260px" src="https://user-gold-cdn.xitu.io/2018/4/10/162af09822867446?w=540&h=740&f=png&s=48813"/>
 
 ## 主要功能
 - **可以使用Fragment进行导航(已经实现)**
@@ -20,9 +21,9 @@
 
 > 多路规划和导航可以放在同一个Activity中实现
 
-<img width="320px" src="http://p6wrbso1g.bkt.clouddn.com/%E5%A4%9A%E8%B7%AF%E5%BE%84%E8%A7%84%E5%88%92%E5%9B%BE%E7%89%87.png"/>
+<img width="320px" src="https://user-gold-cdn.xitu.io/2018/4/10/162af0982563503a?w=1080&h=1920&f=png&s=620209"/>
 
-<img width="320px" src="http://ohsx1h37z.bkt.clouddn.com/%E9%AB%98%E5%BE%B7%E5%AF%BC%E8%88%AA%E6%95%88%E6%9E%9C%E5%9B%BE1.png"/>
+<img width="320px" src="https://user-gold-cdn.xitu.io/2018/4/10/162af0981ba24a51?w=1080&h=1920&f=png&s=456801"/>
 
 
 
