@@ -17,14 +17,16 @@
 
 ```
   dependencies {
-    compile 'com.yisingle.amap.lib:AmapLibrary:0.0.6'
+    compile 'com.yisingle.amap.lib:AmapLibrary:0.0.8'
 }
 ```
 #### 添加高德SDK库到libs
 
-0.0.6-----------AMap3DMap_6.1.0_AMapNavi_6.0.1_AMapSearch_6.1.0_AMapLocation_3.8.0_20180330
+0.0.8-----------AMap3DMap_6.1.0_AMapNavi_6.0.1_AMapSearch_6.1.0_AMapLocation_3.8.0_20180330
 
-[0.0.6对应的高德SDK下载地址](http://p6wqjwt3q.bkt.clouddn.com/0.0.6%E5%AF%B9%E5%BA%94%E9%AB%98%E5%BE%B7SDK.zip)
+高德SDK 2018年3月30 更新的版本 下载地址如下
+
+[0.0.8对应的高德SDK下载地址](http://p6wqjwt3q.bkt.clouddn.com/0.0.6%E5%AF%B9%E5%BA%94%E9%AB%98%E5%BE%B7SDK.zip)
 
 #### app的AndroidManifest.xml添加<meta-data>     
 
