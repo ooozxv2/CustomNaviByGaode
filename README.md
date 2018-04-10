@@ -7,7 +7,8 @@
 
 
 - **扫描下面二维码加入Android高德sdk交流的QQ群 **
-<img width="140px" src="http://p6wrbso1g.bkt.clouddn.com/%E9%AB%98%E5%BE%B7qq%E7%BE%A4%E5%88%86%E4%BA%AB.png"/>
+QQ群号:744832719
+<img width="260px" src="http://p6wrbso1g.bkt.clouddn.com/%E9%AB%98%E5%BE%B7qq%E7%BE%A4%E5%88%86%E4%BA%AB.png"/>
 
 ## 主要功能
 - **可以使用Fragment进行导航(已经实现)**
