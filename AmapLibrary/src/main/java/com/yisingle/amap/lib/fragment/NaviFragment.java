@@ -3,6 +3,8 @@ package com.yisingle.amap.lib.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,13 +27,22 @@ import com.amap.api.navi.view.NextTurnTipView;
 import com.amap.api.navi.view.ZoomInIntersectionView;
 import com.yisingle.amap.lib.GaoDeErrorUtils;
 import com.yisingle.amap.lib.R;
+import com.yisingle.amap.lib.adapter.RecyclerAdapter;
+import com.yisingle.amap.lib.adapter.RecyclerSpace;
+import com.yisingle.amap.lib.adapter.RecyclerViewHolder;
 import com.yisingle.amap.lib.base.navi.BaseNaviFragment;
 import com.yisingle.amap.lib.data.NaviActionData;
 import com.yisingle.amap.lib.data.StrategyType;
 import com.yisingle.amap.lib.location.AMapLocationHelper;
+import com.yisingle.amap.lib.utils.ContextUtils;
 import com.yisingle.amap.lib.utils.DistanceUtils;
+import com.yisingle.amap.lib.utils.DpSpPxUtils;
+import com.yisingle.amap.lib.utils.StrategyUtils;
 import com.yisingle.amap.lib.utils.TimeUtils;
 import com.yisingle.amap.lib.widget.LoadingView;
+import com.yisingle.amap.lib.widget.MultipleRouteView;
+import com.yisingle.amap.lib.widget.NaviStrategyPopouWindow;
+import com.yisingle.amap.lib.widget.SimpleRouteView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +81,29 @@ public class NaviFragment extends BaseNaviFragment {
      * 高德地图控件 TextureMapView
      */
     private TextureMapView textureMapView;
+
+    /**
+     * 列表控件 RecyclerView
+     */
+    private RecyclerView recyclerView;
+
+
+    /**
+     * 开始导航按钮
+     */
+    private Button btBeginNavi;
+
+
+    /**
+     * 策略选择按钮
+     */
+    private Button btStrategyChoose;
+
+
+    private NaviStrategyPopouWindow strategyPopouWindow;
+
+
+    private RecyclerAdapter<SimpleRouteView> adapter;
 
     /**
      * ----------------------------------------------地图相关控件 END-----------------------------
@@ -199,6 +233,7 @@ public class NaviFragment extends BaseNaviFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        ContextUtils.init(getContext());
         return inflater.inflate(R.layout.fragment_navi, container, false);
     }
 
@@ -208,6 +243,35 @@ public class NaviFragment extends BaseNaviFragment {
         //地图View ID加载
         rlMapViewContent = view.findViewById(R.id.rlMapViewContent);
         textureMapView = view.findViewById(R.id.textureMapView);
+        recyclerView = view.findViewById(R.id.recyclerView);
+        btBeginNavi = view.findViewById(R.id.btBeginNavi);
+        btBeginNavi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //在导航地图上绘制路线
+                rlMapViewContent.setVisibility(View.GONE);
+                rlNavViewContent.setVisibility(View.VISIBLE);
+                drawRouteViewOnNaviView(multipleRouteView.getSelectRouteId());
+                //开始导航
+                startNavi();
+            }
+        });
+
+        btStrategyChoose = view.findViewById(R.id.btStrategyChoose);
+        btStrategyChoose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != getActivity() && null != getActivity().getWindow()) {
+                    //将屏幕变暗
+                    strategyPopouWindow.changeDarken(getActivity().getWindow(), true);
+                }
+
+                strategyPopouWindow.showPopuWindows(recyclerView, currentNaviActionData.getStrategy());
+
+
+            }
+        });
+
 
         //导航界面的 控件 ID加载
         rlNavViewContent = view.findViewById(R.id.rlNavViewContent);
@@ -228,6 +292,7 @@ public class NaviFragment extends BaseNaviFragment {
         llLittleTitleContent = view.findViewById(R.id.llLittleTitleContent);
         tvLittleDistance = view.findViewById(R.id.tvLittleDistance);
         tvLittleRoadName = view.findViewById(R.id.tvLittleRoadName);
+        zmLittleInIntersectionView = view.findViewById(R.id.zmLittleInIntersectionView);
         nvLittleTurnView = view.findViewById(R.id.nvLittleTurnView);
         tvSwichRoad = view.findViewById(R.id.tvSwichRoad);
         tvSwichRoad.setOnClickListener(new View.OnClickListener() {
@@ -261,6 +326,8 @@ public class NaviFragment extends BaseNaviFragment {
             }
         });
 
+        initStrategyPopouWindow();
+        initRecyclerView();
         //初始化AMapNavi导航对象
         initAMapNavi();
         //初始化NaviView导航控件
@@ -278,6 +345,14 @@ public class NaviFragment extends BaseNaviFragment {
             doAction(data);
 
         }
+
+        multipleRouteView.setOnItemClickListener(new MultipleRouteView.OnItemClickListener() {
+            @Override
+            public void onItemClick(int index) {
+                multipleRouteView.selectRouteOverLayByIndex(index);
+                adapter.refreshWithNewData(multipleRouteView.getSimpleRouteViewList());
+            }
+        });
     }
 
 
@@ -293,7 +368,10 @@ public class NaviFragment extends BaseNaviFragment {
         currentNaviActionData = data;
         rlMapViewContent.setVisibility(currentNaviActionData.isNaviRightNow() ? View.GONE : View.VISIBLE);
         rlNavViewContent.setVisibility(currentNaviActionData.isNaviRightNow() ? View.VISIBLE : View.GONE);
-
+        btBeginNavi.setVisibility(View.GONE);
+        btStrategyChoose.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.GONE);
+        cleanMultipleRouteViewOnMapView();
 
         if (null != currentNaviActionData) {
             switch (currentNaviActionData.getType()) {
@@ -314,6 +392,76 @@ public class NaviFragment extends BaseNaviFragment {
             }
         }
 
+    }
+
+    private void initStrategyPopouWindow() {
+        strategyPopouWindow = new NaviStrategyPopouWindow(getContext());
+        strategyPopouWindow.setListener(new NaviStrategyPopouWindow.OnChooseStrategyListener() {
+            @Override
+            public void onChooseStrategy(int nowConfimChossStrategy) {
+                //将屏幕变亮
+                if (null != getActivity() && null != getActivity().getWindow()) {
+                    strategyPopouWindow.changeDarken(getActivity().getWindow(), false);
+                }
+
+                //只有策略改变的时候才重新进行路径规划
+                if (nowConfimChossStrategy != currentNaviActionData.getStrategy()) {
+                    //设置策略
+                    currentNaviActionData.setStrategy(nowConfimChossStrategy);
+                    doAction(currentNaviActionData);
+
+                    btStrategyChoose.setText(StrategyUtils.getStrategyName(nowConfimChossStrategy));
+
+
+                } else {
+                    //donoThing
+                }
+            }
+        });
+    }
+
+    private void initRecyclerView() {
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3) {
+            @Override
+            public boolean canScrollVertically() {
+                //设置RecyclerView不能垂直滚动
+                return false;
+            }
+        };
+        RecyclerSpace recyclerSpace = new RecyclerSpace(DpSpPxUtils.dip2px(1), getResources().getColor(R.color.navi_color_grey));
+        recyclerView.addItemDecoration(recyclerSpace);
+        recyclerView.setLayoutManager(gridLayoutManager);
+
+        adapter = new RecyclerAdapter<SimpleRouteView>(null, R.layout.adapter_multi_path) {
+            @Override
+            protected void onBindData(RecyclerViewHolder holder, int position, SimpleRouteView item) {
+                AMapNaviPath path = item.getMapNaviPath();
+                if (null != path) {
+                    holder.setText(R.id.tvTag, item.getMapNaviPath().getLabels());
+                    holder.setSelected(R.id.tvTag, item.isSelect());
+
+                    holder.setText(R.id.tvTime, TimeUtils.secToTime(path.getAllTime()));
+                    holder.setSelected(R.id.tvTime, item.isSelect());
+
+
+                    holder.setText(R.id.tvDistance, DistanceUtils.getDistance(path.getAllLength()));
+                    holder.setSelected(R.id.tvDistance, item.isSelect());
+                }
+
+
+            }
+        };
+        adapter.setOnItemClickListener(new RecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, Object item) {
+                multipleRouteView.selectRouteOverLayByIndex(position);
+                adapter.refreshWithNewData(multipleRouteView.getSimpleRouteViewList());
+
+
+            }
+        });
+        recyclerView.setAdapter(adapter);
     }
 
 
@@ -404,8 +552,13 @@ public class NaviFragment extends BaseNaviFragment {
             } else {
                 //如果不是立即导航  currentNaviActionData.isNaviRightNow()==false
                 drawMultipleRouteViewOnMapView(ints);
+                adapter.refreshWithNewData(multipleRouteView.getSimpleRouteViewList());
+                recyclerView.setVisibility(View.VISIBLE);
+                btBeginNavi.setVisibility(View.VISIBLE);
+                btStrategyChoose.setVisibility(View.VISIBLE);
                 if (ints.length > 0 && null != mAMapNavi) {
                     AMapNaviPath path = mAMapNavi.getNaviPaths().get(ints[0]);
+
                     moveCameraMapView(path.getStartPoint(), path.getEndPoint());
                 }
             }

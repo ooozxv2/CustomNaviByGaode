@@ -10,12 +10,54 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="visible"
-        tools:visibility="gone">
+        tools:visibility="visible">
 
         <com.amap.api.maps.TextureMapView
             android:id="@+id/textureMapView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+
+        <Button
+            android:id="@+id/btStrategyChoose"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_above="@+id/recyclerView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="6dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/bt_strategy_bg"
+            android:drawableEnd="@drawable/navi_strategy_right_arrow"
+            android:drawableRight="@drawable/navi_strategy_right_arrow"
+            android:paddingEnd="6dp"
+            android:paddingRight="6dp"
+            android:text="智能推荐"
+            android:textColor="#333333"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btBeginNavi"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_above="@+id/recyclerView"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="6dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            android:background="@drawable/bt_circular_corner"
+            android:text="开始导航"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" />
 
 
     </RelativeLayout>
@@ -25,7 +67,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
-        tools:visibility="visible">
+        tools:visibility="gone">
 
         <!--重要警告:AMapNaviView可能会与下面的控件发生R.id的冲突
         ，如果遇到问题后就慢慢解决吧。。。。。高德说SDK6.1版本可以解决，但是建议还是留心

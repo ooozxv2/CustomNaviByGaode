@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.navi.AMapNavi;
+import com.amap.api.navi.model.AMapNaviPath;
 import com.amap.api.navi.model.NaviInfo;
 import com.amap.api.navi.model.NaviLatLng;
 import com.amap.api.navi.view.RouteOverLay;
@@ -19,18 +20,21 @@ import java.util.List;
 
 public class SimpleRouteView {
 
-    private final int HIGH_Z_INDEX = 5;
+    public static final int HIGH_Z_INDEX = 5;
 
-    private final int LOW_Z_INDEX = 2;
+    public static final int LOW_Z_INDEX = 2;
 
 
-    private final float HIGH_TRANSPARENCY = 1.0f;
+    public static final float HIGH_TRANSPARENCY = 1.0f;
 
-    private final float LOW_TRANSPARENCY = 0.3f;
+    public static final float LOW_TRANSPARENCY = 0.3f;
 
     private int routeId;
 
     private RouteOverLay routeOverLay;
+
+
+    private AMapNaviPath mapNaviPath;
 
     private boolean isSelect;
 
@@ -45,7 +49,8 @@ public class SimpleRouteView {
         //先将历史的naviRouteOverLay清除掉
         RouteOverLayUtils.cleanRouteOverLay(routeOverLay);
         //绘制路线,这里的Amap请传递导航NaviView的Amap
-        routeOverLay = RouteOverLayUtils.drawRouteOverLay(context, amap, mapNavi.getNaviPaths().get(routeId));
+        mapNaviPath = mapNavi.getNaviPaths().get(routeId);
+        routeOverLay = RouteOverLayUtils.drawRouteOverLay(context, amap, mapNaviPath);
         routeOverLay.setTransparency(LOW_TRANSPARENCY);
         routeOverLay.setZindex(LOW_Z_INDEX);
 
@@ -73,6 +78,10 @@ public class SimpleRouteView {
             routeOverLay.setZindex(isSelect ? HIGH_Z_INDEX : LOW_Z_INDEX);
         }
 
+    }
+
+    public AMapNaviPath getMapNaviPath() {
+        return mapNaviPath;
     }
 
     public boolean isSelect() {

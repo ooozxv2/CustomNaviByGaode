@@ -52,7 +52,6 @@ public abstract class BaseNaviFragment extends BaseNaviLifeCycleFragment {
      * 初始化导航对象 NaviView和这个关系重要。
      */
     protected void initAMapNavi() {
-        ContextUtils.init(getContext());
         //请注意这个是单例模式
         mAMapNavi = AMapNavi.getInstance(getContext());
         //1-CONCISE 专家播报 简洁播报（播报更精简，建议老司机使用）
@@ -134,7 +133,7 @@ public abstract class BaseNaviFragment extends BaseNaviLifeCycleFragment {
      * 根据routeId在MapView画路线
      * 路线有多条
      *
-     * @param routeIds
+     * @param routeIds 路径id数组
      */
     protected void drawMultipleRouteViewOnMapView(int[] routeIds) {
         cleanMultipleRouteViewOnMapView();
@@ -155,6 +154,7 @@ public abstract class BaseNaviFragment extends BaseNaviLifeCycleFragment {
             mAMapNavi.selectRouteId(routeId);
             //在NaviView上绘制路线
             naviRouteView.drawView(getContext(), getNaviView().getMap(), routeId, mAMapNavi);
+            naviRouteView.selectRouteOverLay(true);
         }
 
     }

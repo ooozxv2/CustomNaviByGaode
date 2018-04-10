@@ -2,6 +2,7 @@ package com.yisingle.amap.lib.base.map;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.AMapOptions;
@@ -11,6 +12,7 @@ import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.LatLngBounds;
 import com.amap.api.navi.model.NaviLatLng;
+import com.yisingle.amap.lib.utils.DpSpPxUtils;
 
 /**
  * @author jikun
@@ -133,9 +135,9 @@ public abstract class BaseMapFragment extends Fragment {
         //int paddingTop,设置经纬度范围和mapView上边缘的空隙。
         //int paddingBottom)设置经纬度范围和mapView下边缘的空隙。
         if (null != getMapView() && null != getMapView().getMap()) {
-            getMapView().getMap().animateCamera(
-                    CameraUpdateFactory.newLatLngBoundsRect(latLngBounds, 80, 80, 80, 80)
-            );
+            Log.e("测试代码", "测试代码DpSpPxUtils.dip2px(120)=" + DpSpPxUtils.dip2px(120));
+            getMapView().getMap()
+                    .animateCamera(CameraUpdateFactory.newLatLngBoundsRect(latLngBounds, 80, 80, 80, DpSpPxUtils.dip2px(120)));
         }
 
 
