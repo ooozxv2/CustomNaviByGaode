@@ -7,7 +7,7 @@
 
 
 
-- **扫描下面二维码加入Android高德sdk交流的QQ群 QQ群号:744832719**
+- **关于高德自定义导航的问题大家可以加入QQ群来问我,扫描下面二维码加入Android高德sdk交流的QQ群 QQ群号:744832719**
 
 <img width="260px" src="http://p6wrbso1g.bkt.clouddn.com/%E9%AB%98%E5%BE%B7qq%E7%BE%A4%E5%88%86%E4%BA%AB.png"/>
 
