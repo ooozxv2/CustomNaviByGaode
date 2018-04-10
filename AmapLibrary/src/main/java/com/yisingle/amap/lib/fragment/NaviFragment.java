@@ -342,6 +342,7 @@ public class NaviFragment extends BaseNaviFragment {
         Bundle bundle = getArguments();
         if (null != bundle && null != bundle.getParcelable(BUNDLE_KEY)) {
             NaviActionData data = bundle.getParcelable(BUNDLE_KEY);
+            btStrategyChoose.setText(StrategyUtils.getStrategyName(data.getStrategy()));
             doAction(data);
 
         }
