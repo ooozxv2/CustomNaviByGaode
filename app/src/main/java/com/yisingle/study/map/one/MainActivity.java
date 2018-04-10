@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amap.api.navi.model.NaviLatLng;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.route.BusRouteResult;
 import com.amap.api.services.route.DriveRouteResult;
@@ -20,6 +21,8 @@ import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Permission;
 import com.yisingle.amap.lib.GaoDeErrorUtils;
+import com.yisingle.amap.lib.data.NaviActionData;
+import com.yisingle.amap.lib.data.StrategyType;
 
 import java.util.List;
 
@@ -89,6 +92,27 @@ public class MainActivity extends AppCompatActivity {
 
     public void toNavi(View view) {
         Intent intent = new Intent(this, NaviActivity.class);
+        NaviActionData naviActionData = new NaviActionData.Builder()
+                //路径规划成功后是否立即导航
+                .setNaviRightNow(false)
+                .setStrategy(StrategyType.DRIVING_MULTIPLE_ROUTES_AVOID_CONGESTION)
+                //设置模拟导航
+                .setEmulatorNavi(true)
+                .buildEnd(null, new NaviLatLng(30.661825, 104.071228));
+        intent.putExtra(NaviActivity.KEY,naviActionData);
+        startActivity(intent);
+    }
+    public void toNaviRightNow(View view) {
+
+        Intent intent = new Intent(this, NaviActivity.class);
+        NaviActionData naviActionData = new NaviActionData.Builder()
+                //路径规划成功后是否立即导航
+                .setNaviRightNow(true)
+                .setStrategy(StrategyType.DRIVING_MULTIPLE_ROUTES_AVOID_CONGESTION)
+                //设置模拟导航
+                .setEmulatorNavi(true)
+                .buildEnd(null, new NaviLatLng(30.661825, 104.071228));
+        intent.putExtra(NaviActivity.KEY,naviActionData);
         startActivity(intent);
     }
 
@@ -141,4 +165,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }).start();
     }
+
+
 }

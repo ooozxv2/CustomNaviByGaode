@@ -16,6 +16,8 @@ import com.yisingle.amap.lib.fragment.NaviFragment;
 
 public class NaviActivity extends AppCompatActivity {
 
+    public static final String KEY="naviData";
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -23,13 +25,9 @@ public class NaviActivity extends AppCompatActivity {
         setContentView(R.layout.activity_navi);
 
 
-        NaviActionData naviActionData = new NaviActionData.Builder()
-                //路径规划成功后立即导航
-                .setNaviRightNow(false)
-                .setStrategy(StrategyType.DRIVING_MULTIPLE_ROUTES_AVOID_CONGESTION)
-                //设置模拟导航
-                .setEmulatorNavi(true)
-                .buildEnd(null, new NaviLatLng(30.661825, 104.071228));
+        NaviActionData naviActionData= getIntent().getParcelableExtra(KEY);
+
+
         NaviFragment naviFragment = NaviFragment.newInstance(naviActionData);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.rlNaviContent, naviFragment).commitAllowingStateLoss();
