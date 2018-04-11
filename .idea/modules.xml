@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AmapLibrary/AmapLibrary.iml" filepath="$PROJECT_DIR$/AmapLibrary/AmapLibrary.iml" />
-      <module fileurl="file://$PROJECT_DIR$/GaodeMapStudyOne.iml" filepath="$PROJECT_DIR$/GaodeMapStudyOne.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CustomNaviByGaode.iml" filepath="$PROJECT_DIR$/CustomNaviByGaode.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
