@@ -7,13 +7,6 @@
 <img width="200px" src="https://user-gold-cdn.xitu.io/2018/4/10/162af0981e141889?w=280&h=280&f=png&s=1925"/>
 
 
-
-- **关于高德自定义导航的问题大家可以加入QQ群来交流**
-
-- **扫描下面二维码加入Android高德sdk交流的QQ群 QQ群号:744832719**
-
-<img width="260px" src="https://user-gold-cdn.xitu.io/2018/4/10/162af09822867446?w=540&h=740&f=png&s=48813"/>
-
 ## 主要功能
 - **可以使用Fragment进行导航(已经实现)**
 - **多路径规划(已经实现)**
