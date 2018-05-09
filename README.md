@@ -14,9 +14,9 @@
 
 > 多路规划和导航可以放在同一个Activity中实现
 
-![img1](http://p6wrbso1g.bkt.clouddn.com/%E6%95%88%E6%9E%9C%E5%9B%BE.png)
-![img2](https://user-gold-cdn.xitu.io/2018/4/10/162af0981ba24a51?w=1080&h=1920&f=png&s=456801)
 
+
+<img width="320px" src="http://p6wrbso1g.bkt.clouddn.com/%E6%95%88%E6%9E%9C%E5%9B%BE.png"/>
 <img width="320px" src="https://user-gold-cdn.xitu.io/2018/4/10/162af0981ba24a51?w=1080&h=1920&f=png&s=456801"/>
 
 
